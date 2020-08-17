@@ -1,0 +1,36 @@
+CACHE MANIFEST
+# v12 - Para obligar al cambio bueno mantener una versión.
+# Esto es un comentario.
+
+#Trama que indica que 
+CACHE:
+/templates/login/login.ftl
+/templates/css/bootstrap.css
+/templates/css/bootstrap-grid.css
+/templates/css/bootstrap-reboot.css
+/templates/css/offline-language-spanish.css
+/templates/css/offline-language-spanish-indicator.css
+/templates/css/offline-theme-chrome.css
+
+/templates/js/offline.js
+/templates/js/offline.min.js
+/templates/js/bootstrap.js
+/templates/js/bootstrap.bundle.js
+/templates/js/jquery-3.5.1.slim.min.js
+/templates/js/popper.min.js
+/templates/login/signin.css
+/templates/home.ftl
+/templates/formulario.ftl
+/img/logo.png
+/img/user.png
+
+
+
+NETWORK:
+/login
+/home
+/formulario/listado
+/formulario/mapa
+
+
+
