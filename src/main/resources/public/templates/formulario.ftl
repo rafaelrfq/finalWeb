@@ -394,8 +394,8 @@
 
 
 
-
-        <div id="webcam-app" class="container card card-body">
+        <div class="row justify-content-center">
+        <div id="webcam-app" class="col-lg-10 push-lg-1 card container" style="max-height: 600px;">
             <div class="form-control webcam-start" id="webcam-control">
                 <label class="form-switch">
                     <input type="checkbox" id="webcam-switch">
@@ -429,7 +429,8 @@
             <div class="md-overlay"></div>
         </div>
 
-
+    </div>
+        <br>
 
 
         <div class="form-group">
