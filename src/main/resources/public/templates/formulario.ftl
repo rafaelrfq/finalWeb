@@ -1,29 +1,46 @@
 
 <!DOCTYPE html>
-<html lang="en" manifest="/templates/sinconexion.appcache">
+<html lang="en"  ><!--manifest="/templates/sinconexion.appcache"-->
 <head>
     <meta charset="UTF-8">
     <title>Cliente HTML5</title>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <script src="/templates/js/offline.min.js"></script>
     <link href="/templates/css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="/templates/css/offline-theme-chrome.css" />
     <link rel="stylesheet" href="/templates/css/offline-language-spanish.css" />
     <link rel="stylesheet" href="/templates/css/offline-language-spanish-indicator.css" />
+    <link rel='stylesheet' href='/templates/css/webcam-demo.css' >
+    <link rel='stylesheet' href='css/webcam-demo.css' >
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script type="text/javascript" src="/templates/js/jquery-3.5.1.slim.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.5.1.slim.min.js"></script>
     <script type="text/javascript" src="/templates/js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmO0JHOHAXY2C3Ud49KbMSwFf3APep1Ow&callback=initMap&libraries=&v=weekly"
-            defer
-    ></script>
-    <script>
+
+    <script src="/templates/dist/webcam-easy.min.js"></script>
+    <script src="dist/webcam-easy.min.js"></script>
+
+
+
+</head>
+
+
+
+<script>
         //dependiendo el navegador busco la referencia del objeto.
         var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.moz_indexedDB
 
         //indicamos el nombre y la versión
         var dataBase = indexedDB.open("parcial2", 1);
+
+        var imagen;
 
         //se ejecuta la primera vez que se crea la estructura
         //o se cambia la versión de la base de datos.
@@ -303,8 +320,50 @@
             }
         }
 
+        function guardarFoto() {
+
+            let picture = document.querySelector('#download-photo').href
+
+            imagen = window.btoa(picture);
+
+            document.getElementById("webcam-switch").checked = false;
+
+            var elem = document.getElementById("webcam-app")
+
+
+
+            //Creando una objeto tipo img html
+            var imgSrcs = picture   // array of URLs
+            var myImages, img;
+            img = new Image();
+            img.onload = function() {
+                    // decide which object on the page to load this image into
+                    // this part of the code is missing because you haven't explained how you
+                    // want it to work
+                elem.style.backgroundImage = "url(" + this.src + ")";
+                };
+            img.src = imgSrcs;
+            myImages = img;
+
+
+
+            // var img = document.createElement("img");
+            // img.file = picture;
+
+
+
+
+
+
+
+            stopAll();
+            console.log("coloco imagen");
+
+        };
+
         setInterval(verificarConexion, tiempoReconectar); //para reconectar.
     </script>
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -332,6 +391,47 @@
 <main type="main">
     <div class="container">
         <br><h1 class="text-center">${title}</h1><br>
+
+
+
+
+        <div id="webcam-app" class="container card card-body">
+            <div class="form-control webcam-start" id="webcam-control">
+                <label class="form-switch">
+                    <input type="checkbox" id="webcam-switch">
+                    <i></i>
+                    <span id="webcam-caption">Click to Start Camera</span>
+                </label>
+                <button id="cameraFlip" class="btn d-none"></button>
+            </div>
+
+            <div id="errorMsg" class="col-12 col-md-6 alert-danger d-none">
+                Fail to start camera, please allow permision to access camera. <br/>
+                If you are browsing through social media built in browsers, you would need to open the page in Sarafi (iPhone)/ Chrome (Android)
+                <button id="closeError" class="btn btn-primary ml-3">OK</button>
+            </div>
+            <div class="md-modal md-effect-12">
+                <div id="app-panel" class="app-panel md-content row p-0 m-0">
+                    <div id="webcam-container" class="webcam-container col-12 d-none p-0 m-0">
+                        <video id="webcam" autoplay playsinline width="640" height="480"></video>
+                        <canvas id="canvas" class="d-none"></canvas>
+                        <div class="flash"></div>
+                        <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio>
+                    </div>
+                    <div id="cameraControls" class="cameraControls">
+                        <a href="#" id="exit-app" title="Exit App" class="d-none"><i class="material-icons">exit_to_app</i></a>
+                        <a href="#" id="take-photo" title="Take Photo"><i class="material-icons">camera_alt</i></a>
+                        <a href="#" id="download-photo" title="Save Photo" onclick="guardarFoto()" class="d-none"><i class="material-icons">file_download</i></a>
+                        <a href="#" id="resume-camera"  title="Resume Camera" class="d-none"><i class="material-icons">camera_front</i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="md-overlay"></div>
+        </div>
+
+
+
+
         <div class="form-group">
             <label for="nombre">Nombre:</label>
             <input class="form-control" type="text" id="nombre" name="nombre">
@@ -407,7 +507,139 @@
     </script>
 </main>
 <script type="text/javascript" src="/templates/js/jquery-3.5.1.slim.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.5.1.slim.min.js"></script>
 <script type="text/javascript" src="/templates/js/popper.min.js"></script>
 <script type="text/javascript" src="/templates/js/bootstrap.js"></script>
+<script>
+    const webcamElement = document.getElementById('webcam');
+
+    const canvasElement = document.getElementById('canvas');
+
+    const snapSoundElement = document.getElementById('snapSound');
+
+    const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
+
+
+
+    function stopAll(){
+        cameraStopped();
+        webcam.stop();
+        console.log("webcam stopped");
+    }
+
+    $("#webcam-switch").change(function () {
+        if(this.checked){
+            $('.md-modal').addClass('md-show');
+            webcam.start()
+                .then(result =>{
+                    removeCapture();
+                    cameraStarted();
+                    console.log("webcam started");
+                })
+                .catch(err => {
+                    displayError();
+                });
+        }
+        else {
+            cameraStopped();
+            webcam.stop();
+            console.log("webcam stopped");
+        }
+    });
+
+    $('#cameraFlip').click(function() {
+        webcam.flip();
+        webcam.start();
+    });
+
+    $('#closeError').click(function() {
+        $("#webcam-switch").prop('checked', false).change();
+    });
+
+    function displayError(err = ''){
+        if(err!=''){
+            $("#errorMsg").html(err);
+        }
+        $("#errorMsg").removeClass("d-none");
+    }
+
+    function cameraStarted(){
+        $("#errorMsg").addClass("d-none");
+        $('.flash').hide();
+        $("#webcam-caption").html("on");
+        $("#webcam-control").removeClass("webcam-off");
+        $("#webcam-control").addClass("webcam-on");
+        $(".webcam-container").removeClass("d-none");
+        if( webcam.webcamList.length > 1){
+            $("#cameraFlip").removeClass('d-none');
+        }
+        $("#wpfront-scroll-top-container").addClass("d-none");
+        window.scrollTo(0, 0);
+
+    }
+
+    function cameraStopped(){
+        $("#errorMsg").addClass("d-none");
+        $("#wpfront-scroll-top-container").removeClass("d-none");
+        $("#webcam-control").removeClass("webcam-on");
+        $("#webcam-control").addClass("webcam-off");
+        $("#cameraFlip").addClass('d-none');
+        $(".webcam-container").addClass("d-none");
+        $("#webcam-caption").html("Click to Start Camera");
+        $('.md-modal').removeClass('md-show');
+    }
+
+
+    $("#take-photo").click(function () {
+
+        let picture = webcam.snap();
+        document.querySelector('#download-photo').href = picture;
+        afterTakePhoto();
+    });
+
+    function beforeTakePhoto(){
+        $('.flash')
+            .show()
+            .animate({opacity: 0.3}, 500)
+            .fadeOut(500)
+            .css({'opacity': 0.7});
+        window.scrollTo(0, 0);
+        $('#webcam-control').addClass('d-none');
+        $('#cameraControls').addClass('d-none');
+    }
+
+    function afterTakePhoto(){
+        webcam.stop();
+        $('#canvas').removeClass('d-none');
+        $('#take-photo').addClass('d-none');
+        $('#exit-app').removeClass('d-none');
+        $('#download-photo').removeClass('d-none');
+        $('#resume-camera').removeClass('d-none');
+        $('#cameraControls').removeClass('d-none');
+    }
+
+    function removeCapture(){
+        $('#canvas').addClass('d-none');
+        $('#webcam-control').removeClass('d-none');
+        $('#cameraControls').removeClass('d-none');
+        $('#take-photo').removeClass('d-none');
+        $('#exit-app').addClass('d-none');
+        $('#download-photo').addClass('d-none');
+        $('#resume-camera').addClass('d-none');
+    }
+
+    $("#resume-camera").click(function () {
+        webcam.stream()
+            .then(facingMode =>{
+                removeCapture();
+            });
+    });
+
+    $("#exit-app").click(function () {
+        removeCapture();
+        $("#webcam-switch").prop("checked", false).change();
+    });
+</script>
+
 </body>
 </html>
