@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en"  ><!--manifest="/templates/sinconexion.appcache"-->
+<html lang="en"  manifest="/templates/sinconexion.appcache"><!--manifest="/templates/sinconexion.appcache"-->
 <head>
     <meta charset="UTF-8">
     <title>Cliente HTML5</title>
