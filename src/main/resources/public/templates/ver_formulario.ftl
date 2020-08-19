@@ -5,10 +5,12 @@
         <br><u><h1>${title}</h1></u><hr>
         <h2 class="text-center">Detalle Formulario</h2>
         <div class="card" >
-            <#if !(formulario.fotoBase64)??>
-                <h2>Este formulario no tiene foto.</h2>
-            <#else>
+            <#if (formulario.mimeType)?? && (formulario.mimeType) == "placeholder" && (formulario.fotoBase64)??>
                 <img src="${formulario.fotoBase64}" class="card-img-top" alt="Imagen del Formulario" width="auto" height="auto" style="height: 50%; width: 50%; display: block; margin-left: auto; margin-right: auto">
+            <#elseif !(formulario.fotoBase64)??>
+                <h2>Este formulario no tiene foto.</h2>
+            <#elseif (formulario.mimeType)?? && (formulario.mimeType) != "placeholder" && (formulario.fotoBase64)??>
+                <img src="data:${formulario.mimeType};base64,${formulario.fotoBase64}" class="card-img-top" alt="Imagen del Producto" width="auto" height="auto" style="height: 50%; width: 50%; display: block; margin-left: auto; margin-right: auto">
             </#if>
             <div class="card-body">
                 <div class="row">
