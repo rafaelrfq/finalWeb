@@ -15,7 +15,7 @@ public class LoginRutas {
     UsuarioServicios usuarios = UsuarioServicios.getInstance();
 
     public void rutas(){
-        // Path: localhost:5000/
+        // Path: localhost:7000/
 
         app.get("/login", ctx -> {
             ctx.req.getSession().invalidate();

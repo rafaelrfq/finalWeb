@@ -26,9 +26,7 @@ public class WebSocketRutas {
 
                 for (FormularioJSON formu : formulariosRecibidos) {
                     if (formu.getNombre() != null && formu.getSector() != null && formu.getNivelEscolar() != null) {
-                        byte[] bytes = formu.getFotoBase64().getBytes();
-                        String encodedString = Base64.getEncoder().encodeToString(bytes);
-                        Formulario formuTmp = new Formulario(formu.getNombre(), formu.getSector(), formu.getNivelEscolar(), formu.getLatitud(), formu.getLongitud(), formu.getMimeType(), encodedString);
+                        Formulario formuTmp = new Formulario(formu.getNombre(), formu.getSector(), formu.getNivelEscolar(), formu.getLatitud(), formu.getLongitud(), formu.getMimeType(), formu.getFotoBase64());
                         if (formuInstancia.findByNombre(formuTmp.getNombre()).isEmpty()) {
                             formuInstancia.crear(formuTmp);
                         }

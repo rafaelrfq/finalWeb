@@ -26,7 +26,7 @@ public class FormularioRutas {
                     }
                 });
 
-                // Path: localhost:5000/formulario/
+                // Path: localhost:7000/formulario/
                 get("/", ctx -> {
                     List<String> choices = Arrays.asList("", "Basico", "Medio", "Grado Universitario", "Postgrado", "Doctorado");
                     Map<String, Object> contexto = new HashMap<>();
@@ -35,7 +35,7 @@ public class FormularioRutas {
                     ctx.render("/public/templates/formulario.ftl", contexto);
                 });
 
-                // Path: localhost:5000/formulario/listado/
+                // Path: localhost:7000/formulario/listado/
                 get("/listado", ctx -> {
                     List<Formulario> forms = FormularioServicios.getInstance().ListadoCompleto();
                     Map<String, Object> contexto = new HashMap<>();
@@ -44,7 +44,7 @@ public class FormularioRutas {
                     ctx.render("/public/templates/listado_formulario.ftl", contexto);
                 });
 
-                // Path: localhost:5000/formulario/listado/ver/:id
+                // Path: localhost:7000/formulario/listado/ver/:id
                 get("/listado/ver/:id", ctx -> {
                     Formulario formulario = FormularioServicios.getInstance().find(ctx.pathParam("id", Integer.class).get());
                     Map<String, Object> contexto = new HashMap<>();
@@ -53,14 +53,14 @@ public class FormularioRutas {
                     ctx.render("/public/templates/ver_formulario.ftl", contexto);
                 });
 
-                // Path: localhost:5000/formulario/listado/eliminar/:id
+                // Path: localhost:7000/formulario/listado/eliminar/:id
                 get("/listado/eliminar/:id", ctx -> {
                     Formulario temporal = FormularioServicios.getInstance().find(ctx.pathParam("id", Integer.class).get());
                     FormularioServicios.getInstance().eliminar(temporal.getId());
                     ctx.redirect("/formulario/listado/");
                 });
 
-                // Path: localhost:5000/formulario/mapa/
+                // Path: localhost:7000/formulario/mapa/
                 get("/mapa", ctx -> {
                     List<Formulario> forms = FormularioServicios.getInstance().ListadoCompleto();
                     Map<String, Object> contexto = new HashMap<>();
