@@ -7,7 +7,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <script src="/templates/js/offline.min.js"></script>
     <link href="/templates/css/bootstrap.css" rel="stylesheet">
-    <link href="css/bootstrap.css" rel="stylesheet">
+
     <link rel="stylesheet" href="/templates/css/offline-theme-chrome.css" />
     <link rel="stylesheet" href="/templates/css/offline-language-spanish.css" />
     <link rel="stylesheet" href="/templates/css/offline-language-spanish-indicator.css" />
@@ -17,7 +17,7 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
     <script type="text/javascript" src="/templates/js/jquery-3.5.1.slim.min.js"></script>
     <script type="text/javascript" src="js/jquery-3.5.1.slim.min.js"></script>
     <script type="text/javascript" src="/templates/js/bootstrap.js"></script>
@@ -323,6 +323,8 @@
         function guardarFoto() {
             let picture = document.querySelector('#download-photo').href;
             imagen = picture;
+            console.log("imagen sin cod: "+picture)
+            console.log("imagenbas: "+window.btoa(picture))
             document.getElementById("webcam-switch").checked = false;
 
             var elem = document.getElementById("webcam-app")
@@ -400,7 +402,7 @@
                     </div>
                     <div id="cameraControls" class="cameraControls">
                         <a href="#" id="exit-app" title="Exit App" class="d-none"><i class="material-icons">exit_to_app</i></a>
-                        <a href="#" id="take-photo" title="Take Photo"><i class="material-icons">camera_alt</i></a>
+                        <a href="#" id="take-photo" title="Take Photo"><i class=" take"></i></a>
                         <a href="#" id="download-photo" title="Save Photo" onclick="guardarFoto()" class="d-none"><i class="material-icons">file_download</i></a>
                         <a href="#" id="resume-camera"  title="Resume Camera" class="d-none"><i class="material-icons">camera_front</i></a>
                     </div>
