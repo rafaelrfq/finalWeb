@@ -401,10 +401,10 @@
                         <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio>
                     </div>
                     <div id="cameraControls" class="cameraControls">
-                        <a href="#" id="exit-app" title="Exit App" class="d-none"><i class="material-icons">exit_to_app</i></a>
-                        <a href="#" id="take-photo" title="Take Photo"><i class=" take"></i></a>
-                        <a href="#" id="download-photo" title="Save Photo" onclick="guardarFoto()" class="d-none"><i class="material-icons">file_download</i></a>
-                        <a href="#" id="resume-camera"  title="Resume Camera" class="d-none"><i class="material-icons">camera_front</i></a>
+                        <a href="#" id="exit-app" title="Exit App" class="d-none"><i class="exit"></i></a>
+                        <a href="#" id="take-photo" title="Take Photo"><i class="take"></i></a>
+                        <a href="#" id="download-photo" title="Save Photo" onclick="guardarFoto()" class="d-none"><i class="save"></i></a>
+                        <a href="#" id="resume-camera"  title="Resume Camera" class="d-none"><i class="resume"></i></a>
                     </div>
                 </div>
             </div>

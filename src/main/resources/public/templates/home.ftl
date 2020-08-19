@@ -218,7 +218,7 @@
 
             transaccion.oncomplete = function (e) {
 
-                alert('Objeto agregado correctamente');
+                console.log('Objeto agregado correctamente');
             };
 
             //abriendo la colección de datos que estaremos usando.

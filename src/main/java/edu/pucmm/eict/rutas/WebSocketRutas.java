@@ -9,7 +9,6 @@ import org.eclipse.jetty.websocket.api.Session;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 public class WebSocketRutas {
@@ -57,7 +56,7 @@ public class WebSocketRutas {
 
                     //
                     System.out.println("Mensaje Recibido de "+ctx.getSessionId()+" ====== ");
-                    System.out.println("Mensaje: "+ ctx.message());
+//                    System.out.println("Mensaje: "+ ctx.message());
                     System.out.println("================================");
                     //
                 });
