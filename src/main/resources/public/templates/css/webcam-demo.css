@@ -265,6 +265,49 @@
     background-image: url("/templates/images/camera+alt.png");
     background-size: cover;
 }
+.resume{
+    width: 80px;
+    height: 80px;
+    color: white;
+    margin-left: 40px;
+    margin-top: -10px;
+    position: absolute;
+    cursor: pointer;
+
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url("/templates/images/resume+camera.png");
+    background-size: cover;
+}
+.exit{
+    width: 80px;
+    height: 80px;
+    color: white;
+    margin-left: 40px;
+    margin-top: -10px;
+    position: absolute;
+    cursor: pointer;
+
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url("/templates/images/exit+app.png");
+    background-size: cover;
+}
+.save{
+    width: 80px;
+    height: 80px;
+    color: white;
+    margin-left: 40px;
+    margin-top: -10px;
+    position: absolute;
+    cursor: pointer;
+
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url("/templates/images/save+photo.png");
+    background-size: cover;
+}
+
 .material-icons{
   width: 100px;
   font-size: 50px !important;
