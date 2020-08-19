@@ -29,6 +29,9 @@ CACHE:
 /templates/images/camera_flip_white.png
 https://fonts.googleapis.com/icon?family=Material+Icons
 /templates/images/camera+alt.png
+/templates/images/resume+camera.png
+/templates/images/exit+app.png
+/templates/images/save+photo.png
 
 /templates/dist/webcam-easy.js
 /templates/dist/webcam-easy.min.js
