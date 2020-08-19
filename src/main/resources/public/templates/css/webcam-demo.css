@@ -255,7 +255,7 @@
     width: 80px;
     height: 80px;
     color: white;
-    margin-left: 40px;
+    margin-left: -40px;
     margin-top: -10px;
     position: absolute;
     cursor: pointer;
@@ -269,7 +269,7 @@
     width: 80px;
     height: 80px;
     color: white;
-    margin-left: 40px;
+    margin-left: -280px;
     margin-top: -10px;
     position: absolute;
     cursor: pointer;
@@ -283,7 +283,7 @@
     width: 80px;
     height: 80px;
     color: white;
-    margin-left: 40px;
+    margin-left: 200px;
     margin-top: -10px;
     position: absolute;
     cursor: pointer;
@@ -297,7 +297,7 @@
     width: 80px;
     height: 80px;
     color: white;
-    margin-left: 40px;
+    margin-left: -40px;
     margin-top: -10px;
     position: absolute;
     cursor: pointer;
