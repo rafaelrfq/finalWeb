@@ -100,7 +100,7 @@
                 nivelEscolar: document.querySelector("#nivelEscolar").value,
                 latitud: document.querySelector("#latitud").value,
                 longitud: document.querySelector("#longitud").value,
-                mimeType: "image/png",
+                mimeType: "placeholder",
                 fotoBase64: imagen
             }
 
@@ -343,7 +343,7 @@
             // img.file = picture;
             stopAll();
             console.log("coloco imagen");
-
+            console.log(myImages);
         }
 
         setInterval(verificarConexion, tiempoReconectar); //para reconectar.

@@ -8,7 +8,7 @@
             <#if !(formulario.fotoBase64)??>
                 <h2>Este formulario no tiene foto.</h2>
             <#else>
-                <img src="data:${formulario.mimeType};base64,${formulario.fotoBase64}" class="card-img-top" alt="Imagen del Formulario" width="auto" height="auto" style="height: 50%; width: 50%; display: block; margin-left: auto; margin-right: auto">
+                <img src="${formulario.fotoBase64}" class="card-img-top" alt="Imagen del Formulario" width="auto" height="auto" style="height: 50%; width: 50%; display: block; margin-left: auto; margin-right: auto">
             </#if>
             <div class="card-body">
                 <div class="row">
