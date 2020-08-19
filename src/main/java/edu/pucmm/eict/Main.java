@@ -32,7 +32,8 @@ public class Main {
         Javalin app = Javalin.create(javalinConfig -> {
             javalinConfig.addStaticFiles("/public"); //Agregamos carpeta public como source de archivos estaticos
             javalinConfig.registerPlugin(new RouteOverviewPlugin("rutas")); //Aplicamos el plugin de rutas
-        }).start(5000);
+            javalinConfig.wsFactoryConfig(ws -> { ws.getPolicy().setMaxTextMessageSize(5000000); });
+        }).start(7000);
 
         // Manejadores de rutas
         new WebSocketRutas(app).rutas();

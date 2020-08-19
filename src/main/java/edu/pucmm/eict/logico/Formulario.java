@@ -1,9 +1,6 @@
 package edu.pucmm.eict.logico;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity(name = "Formulario")
@@ -17,8 +14,22 @@ public class Formulario implements Serializable {
     private String nivelEscolar;
     private double latitud;
     private double longitud;
+    private String mimeType;
+
+    @Lob
+    private String fotoBase64;
 
     public Formulario() { }
+
+    public Formulario(String nombre, String sector, String nivelEscolar, double latitud, double longitud, String tipo, String foto) {
+        this.nombre = nombre;
+        this.sector = sector;
+        this.nivelEscolar = nivelEscolar;
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.mimeType = tipo;
+        this.fotoBase64 = foto;
+    }
 
     public Formulario(String nombre, String sector, String nivelEscolar, double latitud, double longitud) {
         this.nombre = nombre;
@@ -51,4 +62,12 @@ public class Formulario implements Serializable {
     public double getLongitud() { return longitud; }
 
     public void setLongitud(double longitud) { this.longitud = longitud; }
+
+    public String getMimeType() { return mimeType; }
+
+    public void setMimeType(String mimeType) { this.mimeType = mimeType; }
+
+    public String getFotoBase64() { return fotoBase64; }
+
+    public void setFotoBase64(String fotoBase64) { this.fotoBase64 = fotoBase64; }
 }

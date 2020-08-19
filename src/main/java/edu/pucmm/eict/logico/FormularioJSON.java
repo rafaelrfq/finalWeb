@@ -7,16 +7,20 @@ public class FormularioJSON {
     private String nivelEscolar;
     private double latitud;
     private double longitud;
+    private String mimeType;
+    private String fotoBase64;
 
     public FormularioJSON() { }
 
-    public FormularioJSON(int id, String nombre, String sector, String nivelEscolar, double latitud, double longitud) {
+    public FormularioJSON(int id, String nombre, String sector, String nivelEscolar, double latitud, double longitud, String mimeType, String foto) {
         this.id = id;
         this.nombre = nombre;
         this.sector = sector;
         this.nivelEscolar = nivelEscolar;
         this.latitud = latitud;
         this.longitud = longitud;
+        this.mimeType = mimeType;
+        this.fotoBase64 = foto;
     }
 
     public int getId() { return id; }
@@ -42,4 +46,12 @@ public class FormularioJSON {
     public double getLongitud() { return longitud; }
 
     public void setLongitud(double longitud) { this.longitud = longitud; }
+
+    public String getMimeType() { return mimeType; }
+
+    public void setMimeType(String mimeType) { this.mimeType = mimeType; }
+
+    public String getFotoBase64() { return fotoBase64; }
+
+    public void setFotoBase64(String fotoBase64) { this.fotoBase64 = fotoBase64; }
 }

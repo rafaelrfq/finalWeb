@@ -34,13 +34,6 @@ public class FormularioRutas {
                     contexto.put("choices", choices);
                     ctx.render("/public/templates/formulario.ftl", contexto);
                 });
-                post("/", ctx -> {
-                    String nomb = ctx.formParam("nombre");
-                    String sector = ctx.formParam("sector");
-                    String nivelEscolar = ctx.formParam("nivelEscolar");
-                    System.out.println(nomb + " " + sector + " " + nivelEscolar);
-                    ctx.redirect("/formulario");
-                });
 
                 // Path: localhost:5000/formulario/listado/
                 get("/listado", ctx -> {
@@ -49,6 +42,15 @@ public class FormularioRutas {
                     contexto.put("title", "Listado Formularios");
                     contexto.put("formularios", forms);
                     ctx.render("/public/templates/listado_formulario.ftl", contexto);
+                });
+
+                // Path: localhost:5000/formulario/listado/ver/:id
+                get("/listado/ver/:id", ctx -> {
+                    Formulario formulario = FormularioServicios.getInstance().find(ctx.pathParam("id", Integer.class).get());
+                    Map<String, Object> contexto = new HashMap<>();
+                    contexto.put("title", "Ver Formulario");
+                    contexto.put("formulario", formulario);
+                    ctx.render("/public/templates/ver_formulario.ftl", contexto);
                 });
 
                 // Path: localhost:5000/formulario/listado/eliminar/:id

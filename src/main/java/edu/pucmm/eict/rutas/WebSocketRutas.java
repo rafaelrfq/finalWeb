@@ -9,6 +9,7 @@ import org.eclipse.jetty.websocket.api.Session;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 public class WebSocketRutas {
@@ -25,7 +26,9 @@ public class WebSocketRutas {
 
                 for (FormularioJSON formu : formulariosRecibidos) {
                     if (formu.getNombre() != null && formu.getSector() != null && formu.getNivelEscolar() != null) {
-                        Formulario formuTmp = new Formulario(formu.getNombre(), formu.getSector(), formu.getNivelEscolar(), formu.getLatitud(), formu.getLongitud());
+                        byte[] bytes = formu.getFotoBase64().getBytes();
+                        String encodedString = Base64.getEncoder().encodeToString(bytes);
+                        Formulario formuTmp = new Formulario(formu.getNombre(), formu.getSector(), formu.getNivelEscolar(), formu.getLatitud(), formu.getLongitud(), formu.getMimeType(), encodedString);
                         if (formuInstancia.findByNombre(formuTmp.getNombre()).isEmpty()) {
                             formuInstancia.crear(formuTmp);
                         }
@@ -43,9 +46,6 @@ public class WebSocketRutas {
 
                 ws.onMessage(ctx -> {
                     //Puedo leer los header, parametros entre otros.
-                    ctx.headerMap();
-                    ctx.pathParamMap();
-                    ctx.queryParamMap();
                     boolean condicion = true;
                     FormularioJSON tempFormu = jacksonToObject(ctx.message());
                     for(FormularioJSON formu : formulariosRecibidos){
@@ -76,7 +76,7 @@ public class WebSocketRutas {
                 });
 
                 ws.onError(ctx -> {
-                    System.out.println("Ocurrió un error en el WS");
+                    System.out.println("Ocurrió un error en el WS\n" + ctx.error().toString());
                 });
             });
         });
@@ -85,7 +85,6 @@ public class WebSocketRutas {
     public static FormularioJSON jacksonToObject(String jsonString)
             throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-
 //        String jsonStr = mapper.writeValueAsString(foo);
 //        assertEquals(foo.getId(),result.getId());
         return mapper.readValue(jsonString, FormularioJSON.class);

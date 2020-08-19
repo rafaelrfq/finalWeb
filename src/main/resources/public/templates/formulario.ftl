@@ -99,7 +99,9 @@
                 sector: document.querySelector("#sector").value,
                 nivelEscolar: document.querySelector("#nivelEscolar").value,
                 latitud: document.querySelector("#latitud").value,
-                longitud: document.querySelector("#longitud").value
+                longitud: document.querySelector("#longitud").value,
+                mimeType: "image/png",
+                fotoBase64: imagen
             }
 
             var request = formularios.put(temp);
@@ -248,8 +250,6 @@
         var tiempoReconectar = 5000;
 
         $(document).ready(function(){
-            console.info("Iniciando Jquery -  Ejemplo WebServices");
-
             conectar();
 
             $("#boton").click(function(){
@@ -288,7 +288,7 @@
         }
 
         function conectar() {
-            webSocket = new WebSocket("wss://" + location.hostname + ":" + location.port + "/wsMsg");
+            webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/wsMsg");
             var req = new XMLHttpRequest();
             req.timeout = 5000;
             req.open('GET', "https://" + location.hostname + ":" + location.port + "/formulario", true);
@@ -321,45 +321,28 @@
         }
 
         function guardarFoto() {
-
-            let picture = document.querySelector('#download-photo').href
-
-            imagen = window.btoa(picture);
-
+            let picture = document.querySelector('#download-photo').href;
+            imagen = picture;
             document.getElementById("webcam-switch").checked = false;
 
             var elem = document.getElementById("webcam-app")
-
-
 
             //Creando una objeto tipo img html
             var imgSrcs = picture   // array of URLs
             var myImages, img;
             img = new Image();
             img.onload = function() {
-                    // decide which object on the page to load this image into
-                    // this part of the code is missing because you haven't explained how you
-                    // want it to work
                 elem.style.backgroundImage = "url(" + this.src + ")";
                 };
             img.src = imgSrcs;
             myImages = img;
 
-
-
             // var img = document.createElement("img");
             // img.file = picture;
-
-
-
-
-
-
-
             stopAll();
             console.log("coloco imagen");
 
-        };
+        }
 
         setInterval(verificarConexion, tiempoReconectar); //para reconectar.
     </script>
@@ -391,9 +374,6 @@
 <main type="main">
     <div class="container">
         <br><h1 class="text-center">${title}</h1><br>
-
-
-
         <div class="row justify-content-center">
         <div id="webcam-app" class="col-lg-10 push-lg-1 card container" style="max-height: 600px;">
             <div class="form-control webcam-start" id="webcam-control">
@@ -431,8 +411,6 @@
 
     </div>
         <br>
-
-
         <div class="form-group">
             <label for="nombre">Nombre:</label>
             <input class="form-control" type="text" id="nombre" name="nombre">
@@ -513,14 +491,9 @@
 <script type="text/javascript" src="/templates/js/bootstrap.js"></script>
 <script>
     const webcamElement = document.getElementById('webcam');
-
     const canvasElement = document.getElementById('canvas');
-
     const snapSoundElement = document.getElementById('snapSound');
-
     const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
-
-
 
     function stopAll(){
         cameraStopped();
