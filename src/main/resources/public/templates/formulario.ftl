@@ -253,27 +253,34 @@
             conectar();
 
             $("#boton").click(function(){
+                let indices = []
 
                 if(!webSocket || webSocket.readyState == 3) {
 
                     alert("Debe conectarse a internet, antes de sincronizar")
 
                 }else{
-                    let data = dataBase.result.transaction(["formularios"]);
+                    let data = dataBase.result.transaction(["formularios"], "readwrite");
                     let formularios = data.objectStore("formularios");
 
                     formularios.openCursor().onsuccess = function (e) {
                         //recuperando la posicion del cursor
-                        var cursor = e.target.result;
+                        let cursor = e.target.result;
                         if (cursor) {
                             webSocket.send(JSON.stringify(cursor.value));
+                            indices.push(cursor.value)
                             cursor.continue();
                         } else {
                             console.log("No hay mas datos.");
                         }
                     };
                     alert("Datos sincronizados");
-                    dataBase.result.deleteObjectStore("formularios");
+
+                    let borrar = formularios.clear();
+
+                    borrar.onsuccess = function (event) {
+                        console.log("Formularios borrados de la IndexedDB.");
+                    };
                 }
             });
         });
@@ -288,7 +295,7 @@
         }
 
         function conectar() {
-            webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/wsMsg");
+            webSocket = new WebSocket("wss://" + location.hostname + ":" + location.port + "/wsMsg");
             var req = new XMLHttpRequest();
             req.timeout = 5000;
             req.open('GET', "https://" + location.hostname + ":" + location.port + "/formulario", true);
