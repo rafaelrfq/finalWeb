@@ -2,6 +2,7 @@ package edu.pucmm.eict;
 
 import edu.pucmm.eict.controladora.DataBaseServices;
 import edu.pucmm.eict.controladora.FormularioServicios;
+import edu.pucmm.eict.controladora.SoapControlador;
 import edu.pucmm.eict.controladora.UsuarioServicios;
 import edu.pucmm.eict.logico.Formulario;
 import edu.pucmm.eict.logico.Usuario;
@@ -33,9 +34,12 @@ public class Main {
             javalinConfig.addStaticFiles("/public"); //Agregamos carpeta public como source de archivos estaticos
             javalinConfig.registerPlugin(new RouteOverviewPlugin("rutas")); //Aplicamos el plugin de rutas
             javalinConfig.wsFactoryConfig(ws -> { ws.getPolicy().setMaxTextMessageSize(5000000); });
-        }).start(7000);
+        });
 
         // Manejadores de rutas
+        new SoapControlador(app).aplicarRutas();
+        app.start(7000);
+
         new WebSocketRutas(app).rutas();
         new FormularioRutas(app).rutas();
         new LoginRutas(app).rutas();
@@ -61,5 +65,7 @@ public class Main {
             contexto.put("usuario", aux);
             ctx.render("/public/templates/home.ftl", contexto);
         });
+
+
     }
 }

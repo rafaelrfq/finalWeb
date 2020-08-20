@@ -24,6 +24,10 @@ dependencies {
     compile 'com.j2html:j2html:1.0.0'
     compile "com.fasterxml.jackson.core:jackson-databind:2.10.5"
     compile "io.jsonwebtoken:jjwt:0.9.1"
+    compile group: 'org.eclipse.jetty', name: 'jetty-http-spi', version: '9.4.30.v20200611'
+    compile "org.glassfish.jaxb:jaxb-runtime:2.4.0-b180830.0438"
+    compile "com.sun.xml.ws:jaxws-rt:2.3.1"
+    compile "com.sun.xml.ws:rt:2.3.1"
 }
 
 shadowJar{
