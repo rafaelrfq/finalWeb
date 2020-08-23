@@ -49,5 +49,10 @@ public class FormularioWebServices {
     public Formulario actualizarFormulario(Formulario formulario){
         return fakeServices.actualizarFormulario(formulario);
     }
+    @WebMethod
+    public boolean borrarFormulario(int id){
+        return fakeServices.eliminandoFormulario(id);
+    }
+
 
 }
