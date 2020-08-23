@@ -79,16 +79,6 @@
             // Es necesario abrir una transacción e indicar un modo: readonly, readwrite y versionchange
             var transaccion = dbActiva.transaction(["formularios"], "readwrite");
 
-            //Manejando los errores.
-            transaccion.onerror = () => {
-                alert(request.error.name + '\n\n' + request.error.message);
-            };
-
-            transaccion.oncomplete = () => {
-                document.querySelector("#nombre").value = '';
-                alert('Objeto agregado correctamente');
-            };
-
             //abriendo la colección de datos que estaremos usando.
             var formularios = transaccion.objectStore("formularios");
 
@@ -104,24 +94,34 @@
                 fotoBase64: imagen
             }
 
-            var request = formularios.put(temp);
+            if(!(temp.nombre == "" || temp.sector == "" || temp.nivelEscolar == "")){
+                if(!(temp.fotoBase64 == undefined)){
+                    var request = formularios.put(temp);
 
-            request.onerror = function (e) {
-                var mensaje = "Error: "+e.target.errorCode;
-                console.error(mensaje);
-                alert(mensaje)
-            };
+                    request.onerror = function (e) {
+                        var mensaje = "Error: "+e.target.errorCode;
+                        console.error(mensaje);
+                        alert(mensaje)
+                    };
 
-            request.onsuccess = () => {
-                console.log("Datos Procesado con exito");
-                document.querySelector("#nombre").value = "";
-                document.querySelector("#sector").value = "";
-                document.querySelector("#nivelEscolar").value = "";
-                document.querySelector("#latitud").value = "";
-                document.querySelector("#longitud").value = "";
-                setearLocalizacion();
-                listarDatos();
-            };
+                    request.onsuccess = () => {
+                        console.log("Datos Procesados con exito");
+                        document.querySelector("#nombre").value = "";
+                        document.querySelector("#sector").value = "";
+                        document.querySelector("#nivelEscolar").value = "";
+                        document.querySelector("#latitud").value = "";
+                        document.querySelector("#longitud").value = "";
+                        setearLocalizacion();
+                        listarDatos();
+                        imagen = undefined;
+                        document.getElementById("webcam-app").style.backgroundImage = "";
+                    };
+                } else {
+                    alert("Debe tomar una foto para el formulario.");
+                }
+            } else {
+                alert("Debe llenar todos los campos del formulario.");
+            }
         }
 
         function editarFormulario(idFormulario) {
@@ -281,6 +281,8 @@
                     borrar.onsuccess = function (event) {
                         console.log("Formularios borrados de la IndexedDB.");
                     };
+
+                    listarDatos();
                 }
             });
         });
@@ -295,7 +297,7 @@
         }
 
         function conectar() {
-            webSocket = new WebSocket("wss://" + location.hostname + ":" + location.port + "/wsMsg");
+            webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/wsMsg");
             var req = new XMLHttpRequest();
             req.timeout = 5000;
             req.open('GET', "https://" + location.hostname + ":" + location.port + "/formulario", true);
@@ -491,6 +493,11 @@
                 document.querySelector("#latitud").value = "No permite el acceso del API GEO. Codigo: "+error.code+", mensaje: "+error.message;
                 document.querySelector("#longitud").value = "No permite el acceso del API GEO. Codigo: "+error.code+", mensaje: "+error.message;
             });
+            let lat = document.querySelector("#latitud");
+            let longit = document.querySelector("#longitud");
+            if(lat == "No permite el acceso del API GEO" || longit == "No permite el acceso del API GEO"){
+                setearLocalizacion();
+            }
         }
     </script>
 </main>
