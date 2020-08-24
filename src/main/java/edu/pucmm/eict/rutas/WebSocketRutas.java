@@ -15,25 +15,11 @@ public class WebSocketRutas {
     private Javalin app;
     public WebSocketRutas(Javalin app) { this.app = app; }
     public static List<Session> usuariosConectados = new ArrayList<>();
-    public static List<FormularioJSON> formulariosRecibidos = new ArrayList<>();
 
     FormularioServicios formuInstancia = FormularioServicios.getInstance();
 
     public void rutas(){
         app.routes(() -> {
-            app.before(ctx -> {
-
-                for (FormularioJSON formu : formulariosRecibidos) {
-                    if (formu.getNombre() != null && formu.getSector() != null && formu.getNivelEscolar() != null) {
-                        Formulario formuTmp = new Formulario(formu.getNombre(), formu.getSector(), formu.getNivelEscolar(), formu.getLatitud(), formu.getLongitud(), formu.getMimeType(), formu.getFotoBase64());
-                        if (formuInstancia.findByNombre(formuTmp.getNombre()).isEmpty()) {
-                            formuInstancia.crear(formuTmp);
-                        }
-                    }
-                }
-
-            });
-
             app.ws("/wsMsg", ws -> {
 
                 ws.onConnect(ctx -> {
@@ -43,16 +29,9 @@ public class WebSocketRutas {
 
                 ws.onMessage(ctx -> {
                     //Puedo leer los header, parametros entre otros.
-                    boolean condicion = true;
-                    FormularioJSON tempFormu = jacksonToObject(ctx.message());
-                    for(FormularioJSON formu : formulariosRecibidos){
-                        if(tempFormu.getId() == formu.getId()){
-                            condicion = false;
-                        }
-                    }
-                    if(condicion){
-                        formulariosRecibidos.add(tempFormu);
-                    }
+                    FormularioJSON tempJson = jacksonToObject(ctx.message());
+                    Formulario formulario = new Formulario(tempJson.getNombre(), tempJson.getSector(), tempJson.getNivelEscolar(), tempJson.getLatitud(), tempJson.getLongitud(), tempJson.getMimeType(), tempJson.getFotoBase64());
+                    formuInstancia.crear(formulario);
 
                     //
                     System.out.println("Mensaje Recibido de "+ctx.getSessionId()+" ====== ");

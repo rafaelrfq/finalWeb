@@ -259,6 +259,7 @@
                     alert("Debe conectarse a internet, antes de sincronizar")
 
                 }else{
+                    $("#boton").html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Sincronizando Datos...').addClass('disabled');
                     var data = dataBase.result.transaction(["formularios"], "readwrite");
                     var formularios = data.objectStore("formularios");
                     var r = formularios.openCursor();
@@ -272,6 +273,8 @@
                         } else {
                             console.log("No hay mas datos.");
                             alert("Datos sincronizados");
+                            $("#boton").html('Sincronizar Datos').removeClass('disabled');
+                            $("#boton").find('span').remove();
                             var borrar = formularios.clear();
 
                             borrar.onsuccess = function (event) {
