@@ -253,33 +253,31 @@
             conectar();
 
             $("#boton").click(function(){
-                let indices = []
 
                 if(!webSocket || webSocket.readyState == 3) {
 
                     alert("Debe conectarse a internet, antes de sincronizar")
 
                 }else{
-                    let data = dataBase.result.transaction(["formularios"], "readwrite");
-                    let formularios = data.objectStore("formularios");
+                    var data = dataBase.result.transaction(["formularios"], "readwrite");
+                    var formularios = data.objectStore("formularios");
+                    var r = formularios.openCursor();
 
-                    formularios.openCursor().onsuccess = function (e) {
+                    r.onsuccess = function (event) {
                         //recuperando la posicion del cursor
-                        let cursor = e.target.result;
+                        var cursor = event.target.result;
                         if (cursor) {
                             webSocket.send(JSON.stringify(cursor.value));
-                            indices.push(cursor.value)
                             cursor.continue();
                         } else {
                             console.log("No hay mas datos.");
+                            alert("Datos sincronizados");
+                            var borrar = formularios.clear();
+
+                            borrar.onsuccess = function (event) {
+                                console.log("Formularios borrados de la IndexedDB.");
+                            };
                         }
-                    };
-                    alert("Datos sincronizados");
-
-                    let borrar = formularios.clear();
-
-                    borrar.onsuccess = function (event) {
-                        console.log("Formularios borrados de la IndexedDB.");
                     };
 
                     listarDatos();
