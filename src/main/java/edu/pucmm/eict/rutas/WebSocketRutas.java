@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static j2html.TagCreator.p;
+
 public class WebSocketRutas {
     private Javalin app;
     public WebSocketRutas(Javalin app) { this.app = app; }
@@ -32,6 +34,7 @@ public class WebSocketRutas {
                     FormularioJSON tempJson = jacksonToObject(ctx.message());
                     Formulario formulario = new Formulario(tempJson.getNombre(), tempJson.getSector(), tempJson.getNivelEscolar(), tempJson.getLatitud(), tempJson.getLongitud(), tempJson.getMimeType(), tempJson.getFotoBase64());
                     formuInstancia.crear(formulario);
+                    enviarMensaje("Recibido");
 
                     //
                     System.out.println("Mensaje Recibido de "+ctx.getSessionId()+" ====== ");
@@ -66,4 +69,13 @@ public class WebSocketRutas {
         return mapper.readValue(jsonString, FormularioJSON.class);
     }
 
+    public static void enviarMensaje(String mensaje){
+        for(Session sesionConectada : usuariosConectados){
+            try {
+                sesionConectada.getRemote().sendString(mensaje);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

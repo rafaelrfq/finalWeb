@@ -41,6 +41,8 @@
         var dataBase = indexedDB.open("parcial2", 1);
 
         var imagen;
+        var contador = 0;
+        var count = 0;
 
         //se ejecuta la primera vez que se crea la estructura
         //o se cambia la versión de la base de datos.
@@ -270,20 +272,11 @@
                         if (cursor) {
                             webSocket.send(JSON.stringify(cursor.value));
                             cursor.continue();
+                            count++;
                         } else {
                             console.log("No hay mas datos.");
-                            alert("Datos sincronizados");
-                            $("#boton").html('Sincronizar Datos').removeClass('disabled');
-                            $("#boton").find('span').remove();
-                            var borrar = formularios.clear();
-
-                            borrar.onsuccess = function (event) {
-                                console.log("Formularios borrados de la IndexedDB.");
-                            };
                         }
                     };
-
-                    listarDatos();
                 }
             });
         });
@@ -293,12 +286,30 @@
          * @param mensaje
          */
         function recibirInformacionServidor(mensaje){
-            console.log("Recibiendo del servidor: "+mensaje.data)
-            $("#mensajeServidor").append(mensaje.data);
+            console.log("Recibiendo del servidor: "+ mensaje.data)
+            if(mensaje.data == "Recibido"){
+                contador++;
+            }
+            if(contador == count){
+                var data = dataBase.result.transaction(["formularios"], "readwrite");
+                var formularios = data.objectStore("formularios");
+
+                alert("Datos sincronizados");
+                $("#boton").html('Sincronizar Datos').removeClass('disabled');
+                $("#boton").find('span').remove();
+                var borrar = formularios.clear();
+
+                borrar.onsuccess = function (event) {
+                    console.log("Formularios borrados de la IndexedDB.");
+                    listarDatos();
+                };
+                contador = 0;
+                count = 0;
+            }
         }
 
         function conectar() {
-            webSocket = new WebSocket("wss://" + location.hostname + ":" + location.port + "/wsMsg");
+            webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/wsMsg");
             var req = new XMLHttpRequest();
             req.timeout = 5000;
             req.open('GET', "https://" + location.hostname + ":" + location.port + "/formulario", true);
