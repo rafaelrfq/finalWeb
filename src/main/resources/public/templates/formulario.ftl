@@ -309,7 +309,7 @@
         }
 
         function conectar() {
-            webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/wsMsg");
+            webSocket = new WebSocket("wss://" + location.hostname + ":" + location.port + "/wsMsg");
             var req = new XMLHttpRequest();
             req.timeout = 5000;
             req.open('GET', "https://" + location.hostname + ":" + location.port + "/formulario", true);
