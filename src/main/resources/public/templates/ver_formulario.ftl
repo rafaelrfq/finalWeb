@@ -15,26 +15,54 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4><b>Nombre:</b></h4>
-                        <input type="text" value="${formulario.nombre}" readonly>
+                        <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="nombre">Nombre:</span>
+                        </div>
+                        <input type="text" class="form-control" id="validationDefaultnombre" value="${formulario.nombre}" aria-describedby="nombre" required readonly>
+                    </div>
                     </div>
                     <div class="col-md-4">
-                        <h4><b>Sector:</b></h4>
-                        <input type="text" value="${formulario.sector}" readonly>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="sector">Sector:</span>
+                            </div>
+                            <input type="text" class="form-control" id="validationDefaultsector" value="${formulario.sector}" aria-describedby="sector" required readonly>
+                        </div>
+
+
                     </div>
                     <div class="col-md-4">
-                        <h4><b>Nivel Escolar:</b></h4>
-                        <input type="text" value="${formulario.nivelEscolar}" readonly>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="nivelEscolar">Nivel Escolar:</span>
+                            </div>
+                            <input type="text" class="form-control" id="validationDefaultnivelEscolar" value="${formulario.nivelEscolar}" aria-describedby="nivelEscolar" required readonly>
+                        </div>
+
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <h4><b>Latitud:</b></h4>
-                        <input type="text" value="${formulario.latitud}" readonly>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="latitud">Latitud: </span>
+                            </div>
+                            <input type="text" class="form-control" id="validationDefaultlatitud" value="${formulario.latitud}" aria-describedby="latitud" required readonly>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <h4><b>Longitud:</b></h4>
-                        <input type="text" value="${formulario.longitud}" readonly>
+
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="longitud">Longitud: </span>
+                            </div>
+                            <input type="text" class="form-control" id="validationDefaultlongitud" value="${formulario.longitud}" aria-describedby="longitud" required readonly>
+                        </div>
+
                     </div>
                 </div>
             </div>
